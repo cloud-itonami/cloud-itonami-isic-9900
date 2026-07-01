@@ -36,6 +36,8 @@ No automated advice can dispatch a robot action the governor refuses, issue
 a credential outside its scope, or publish a report without governor
 approval and audit evidence.
 
+A live sample of the operator console (robotics safety console) is rendered in [docs/samples/operator-console.html](docs/samples/operator-console.html) — pure-data HTML output of `kotoba.robotics.ui`.
+
 ## Capability layer
 
 Resolves via [`kotoba-lang/industry`](https://github.com/kotoba-lang/industry)
