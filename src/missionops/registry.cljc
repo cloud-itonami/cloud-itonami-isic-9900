@@ -49,6 +49,26 @@
   (let [s (str n)]
     (str (apply str (repeat (max 0 (- w (count s))) "0")) s)))
 
+(def ^:private amount-scale
+  "Sub-minor-unit scale used when comparing two amount amounts: 1/10000
+  of a unit. Coarser than double representation error by many orders of
+  magnitude, finer than any distinction a real amount carries."
+  10000)
+
+(defn- amount=
+  "Exact-at-amount-precision equality for two amounts.
+
+  `==` on raw doubles is NOT the right comparison here: a product or sum
+  of decimal quantities is routinely not the double nearest the true
+  total, so a CORRECT claim compared false. Measured across this fleet's
+  recompute shapes, 20-27% of cent-denominated combinations failed while
+  being right. A missing or non-numeric amount never matches --
+  un-verifiable is not the same as correct."
+  [x y]
+  (and (number? x) (number? y)
+       (= (Math/round (* amount-scale (double x)))
+          (Math/round (* amount-scale (double y))))))
+
 (defn compute-aid-value
   "The ground-truth aid value for `deployment`'s own `:aid-quantity`
   and `:unit-value` -- a single flat quantity x unit-value
@@ -64,7 +84,7 @@
   discipline every sibling actor's own cost/total-matching check
   establishes, not a new concept."
   [{:keys [claimed-aid-value] :as deployment}]
-  (== (double claimed-aid-value) (double (compute-aid-value deployment))))
+  (amount= claimed-aid-value (compute-aid-value deployment)))
 
 (defn register-dispatch
   "Validate + construct the MISSION-DISPATCH registration DRAFT -- the
