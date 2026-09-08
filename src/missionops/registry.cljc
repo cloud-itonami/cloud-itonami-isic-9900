@@ -31,7 +31,7 @@
   publishing a report itself (that is `missionops.operation`'s
   `:deployment/dispatch`/`:deployment/report`, always human-gated --
   see README `Actuation`)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- unsigned-certificate
   "Every certificate this actor produces is UNSIGNED -- signature is
@@ -103,7 +103,7 @@
     (throw (ex-info "dispatch: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "dispatch: sequence must be >= 0" {})))
-  (let [dispatch-number (str (str/upper-case jurisdiction) "-DSP-" (zero-pad sequence 6))
+  (let [dispatch-number (str (str/upper jurisdiction) "-DSP-" (zero-pad sequence 6))
         record {"record_id" dispatch-number
                 "kind" "dispatch-draft"
                 "deployment_id" deployment-id
@@ -128,7 +128,7 @@
     (throw (ex-info "report: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "report: sequence must be >= 0" {})))
-  (let [report-number (str (str/upper-case jurisdiction) "-RPT-" (zero-pad sequence 6))
+  (let [report-number (str (str/upper jurisdiction) "-RPT-" (zero-pad sequence 6))
         record {"record_id" report-number
                 "kind" "report-draft"
                 "deployment_id" deployment-id
