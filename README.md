@@ -66,7 +66,7 @@ Two independent layers enforce this (`missionops.governor`'s
 `:actuation/dispatch-mission`/`:actuation/publish-report` high-stakes
 gate and `missionops.phase`'s phase table, which never puts either op
 in any phase's `:auto` set) -- see `missionops.phase`'s docstring and
-`test/missionops/phase_test.clj`'s `deployment-dispatch-never-auto-
+`test/missionops/phase_test.kotoba`'s `deployment-dispatch-never-auto-
 at-any-phase`/`deployment-report-never-auto-at-any-phase`. The actor
 may draft, check and recommend; a human mission-operations coordinator
 is always the one who actually dispatches a mission or publishes a
@@ -169,14 +169,14 @@ rendered in [docs/samples/operator-console.html](docs/samples/operator-console.h
 
 | File | Role |
 |---|---|
-| `src/missionops/store.cljc` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + dispatch AND report history (dual history). The double-actuation guard checks dedicated `:dispatched?`/`:reported?` booleans rather than a `:status` value |
-| `src/missionops/registry.cljc` | Dispatch/report draft records, plus `aid-value-matches-claim?` -- self-contained ground-truth recompute (no bespoke capability library exists for this domain) |
-| `src/missionops/facts.cljc` | Per-jurisdiction mission-accreditation AND cross-border-notification catalog with an official spec-basis citation per entry, honest coverage reporting -- ALL FOUR seeded jurisdictions have a cross-border-notification sub-citation here |
-| `src/missionops/missionopsllm.cljc` | **MissionOps-LLM** -- `mock-advisor` ‖ `llm-advisor`; intake/jurisdiction-assessment/dispatch/report proposals |
-| `src/missionops/governor.cljc` | **Mission Operations Governor** -- 5 HARD checks (spec-basis · evidence-incomplete · dispatch-outside-credential-scope, FLAGSHIP NEW, the 92nd unconditional-evaluation-discipline grounding · aid-value-mismatch · cross-border-notification-missing, CONDITIONAL, the 93rd grounding) + 2 double-actuation guards + 1 soft (confidence/actuation gate) |
-| `src/missionops/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted assess → supervised (dispatch/report always human; deployment intake is the ONLY auto-eligible op, no direct field-facing risk) |
-| `src/missionops/operation.cljc` | **OperationActor** -- langgraph StateGraph |
-| `src/missionops/sim.cljc` | demo driver |
+| `src/missionops/store.kotoba` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + dispatch AND report history (dual history). The double-actuation guard checks dedicated `:dispatched?`/`:reported?` booleans rather than a `:status` value |
+| `src/missionops/registry.kotoba` | Dispatch/report draft records, plus `aid-value-matches-claim?` -- self-contained ground-truth recompute (no bespoke capability library exists for this domain) |
+| `src/missionops/facts.kotoba` | Per-jurisdiction mission-accreditation AND cross-border-notification catalog with an official spec-basis citation per entry, honest coverage reporting -- ALL FOUR seeded jurisdictions have a cross-border-notification sub-citation here |
+| `src/missionops/missionopsllm.kotoba` | **MissionOps-LLM** -- `mock-advisor` ‖ `llm-advisor`; intake/jurisdiction-assessment/dispatch/report proposals |
+| `src/missionops/governor.kotoba` | **Mission Operations Governor** -- 5 HARD checks (spec-basis · evidence-incomplete · dispatch-outside-credential-scope, FLAGSHIP NEW, the 92nd unconditional-evaluation-discipline grounding · aid-value-mismatch · cross-border-notification-missing, CONDITIONAL, the 93rd grounding) + 2 double-actuation guards + 1 soft (confidence/actuation gate) |
+| `src/missionops/phase.kotoba` | **Phase 0→3** -- read-only → assisted intake → assisted assess → supervised (dispatch/report always human; deployment intake is the ONLY auto-eligible op, no direct field-facing risk) |
+| `src/missionops/operation.kotoba` | **OperationActor** -- langgraph StateGraph |
+| `src/missionops/sim.kotoba` | demo driver |
 | `test/missionops/*_test.clj` | governor contract · phase invariants · store parity · registry conformance · facts coverage |
 
 ## Business-process coverage (honest)
