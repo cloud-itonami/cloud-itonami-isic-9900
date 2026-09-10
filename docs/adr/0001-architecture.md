@@ -140,7 +140,7 @@ prior governor's guards establish, informed by
 `missionops.store/Store` is implemented by both `MemStore` (atom-
 backed, default for dev/tests/demo) and `DatomicStore` (`langchain.
 db`-backed), proven to satisfy the same contract in
-`test/missionops/store_contract_test.clj`.
+`test/missionops/store_contract_test.kotoba`.
 
 ### Decision 9: no bespoke capability library, no `blueprint.edn` field-sync fixes needed
 
@@ -196,7 +196,7 @@ dispatching a mission or auto-publishing a report).
   missing?` (93rd distinct application overall, the SIXTEENTH
   conditional variant).
 - `MemStore` ‖ `DatomicStore` parity is proven by
-  `test/missionops/store_contract_test.clj`.
+  `test/missionops/store_contract_test.kotoba`.
 - 39 tests / 176 assertions pass; lint is clean; the demo
   (`clojure -M:dev:run`) walks two clean dispatch+report lifecycles
   (no cross-border movement, cross-border movement with notification
