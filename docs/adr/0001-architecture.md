@@ -198,7 +198,7 @@ dispatching a mission or auto-publishing a report).
 - `MemStore` ‖ `DatomicStore` parity is proven by
   `test/missionops/store_contract_test.kotoba`.
 - 39 tests / 176 assertions pass; lint is clean; the demo
-  (`clojure -M:dev:run`) walks two clean dispatch+report lifecycles
+  (`kbb -M:dev:run`) walks two clean dispatch+report lifecycles
   (no cross-border movement, cross-border movement with notification
   confirmed), plus four HARD-hold scenarios, end-to-end.
 - `blueprint.edn` needed no field-sync fix this time -- only the
