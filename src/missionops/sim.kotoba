@@ -1,5 +1,5 @@
 (ns missionops.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean deployment
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean deployment
   through intake -> jurisdiction assessment -> mission dispatch
   (escalate/approve/commit) -> public report (escalate/approve/
   commit), then a SEPARATE clean cross-border deployment through the

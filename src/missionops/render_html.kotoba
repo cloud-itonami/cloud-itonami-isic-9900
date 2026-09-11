@@ -6,7 +6,7 @@
   robotics-themed sample page and no generator at all. This namespace
   drives the REAL actor stack (`missionops.operation` ->
   `missionops.governor` -> `missionops.store`) through a scenario adapted
-  from this repo's own `missionops.sim` demo driver (`clojure -M:dev:run`,
+  from this repo's own `missionops.sim` demo driver (`kbb -M:dev:run`,
   confirmed BEFORE writing this file to produce a sensible ledger against
   the real seeded deployment ids `deployment-1`..`deployment-6` that DO
   match `missionops.store/demo-data`), trimmed to a representative subset
@@ -16,7 +16,7 @@
   page content, byte-identical across reruns against the same seed
   (verify by diffing two consecutive runs).
 
-  Usage: `clojure -M:dev:render-html [out-file]`
+  Usage: `kbb -M:dev:render-html [out-file]`
   (default `docs/samples/operator-console.html`)."
   (:require [jp-go-dds.skin]
             [kotoba.lang.text :as str]
@@ -171,7 +171,7 @@
      "<main>\n"
      "  <section class=\"card\">\n"
      "    <h2>Deployments</h2>\n"
-     "    <p class=\"muted\">Demo snapshot — build-time-generated from <code>missionops.store</code> via <code>missionops.render-html</code> (<code>clojure -M:dev:render-html</code>), regenerated nightly.</p>\n"
+     "    <p class=\"muted\">Demo snapshot — build-time-generated from <code>missionops.store</code> via <code>missionops.render-html</code> (<code>kbb -M:dev:render-html</code>), regenerated nightly.</p>\n"
      "    <table>\n"
      "      <thead><tr><th>Deployment</th><th>Mission</th><th>Robot type</th><th>Jurisdiction</th><th>Dispatch/report status</th><th>Last op status</th></tr></thead>\n"
      "      <tbody>\n"
