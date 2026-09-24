@@ -1,0 +1,35 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:dev:physics` runs it.
+;;
+;; README "Robotics premise": robots (aid-delivery, logistics, environmental
+;; observation, demining-survey) operate for an extraterritorial organization
+;; (ISIC 9900), gated by the Mission Operations Governor. Its physical work
+;; here is aid delivery: loading family food parcels onto the delivery ground
+;; vehicle, and driving that vehicle up an unpaved track to the distribution
+;; point.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isic-9900"
+ :cases
+ [{:id :aid-ugv-unpaved-climb
+   :kind :transport
+   :procedure "aid-delivery ground vehicle carries 200 kg of food parcels 500 m up an unpaved gravel track to the distribution point; the sweep is the track grade"
+   :params {:mass-kg 250.0 :payload-kg 200.0 :distance-m 500.0 :v-max-mps 1.5 :a-max-mps2 0.4
+            :brake-decel-mps2 1.0 :drive-force-n 1200.0 :crr 0.08
+            :cog-height-m 0.60 :support-half-length-m 0.55 :payload-cog-height-m 0.95
+            :max-time-s 7200.0}
+   :sweep {:param :slope-deg :values [0.0 4.0 8.0 10.0 11.0 12.0]}
+   :quantity :cycle-time-s
+   :limit {:max 600.0 :basis "estimate: one 500 m leg in ten minutes so a distribution round fits the security window; gravel rolling-resistance coefficient 0.08 and drive force are estimates"}
+   :boundary {:lo 0.0 :hi 25.0}}
+  {:id :food-parcel-onto-ugv
+   :kind :manipulator
+   :procedure "arm lifts a family food parcel from the warehouse pallet onto the ground vehicle's cargo deck"
+   :params {:l1-m 0.60 :l2-m 0.55 :m1-kg 8.0 :m2-kg 6.0
+            :from [0.60 0.15] :to [0.55 0.70] :duration-s 3.0 :steps 500}
+   :sweep {:param :payload-kg :values [10.0 15.0 20.0 25.0 30.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 300.0 :basis "estimate: continuous shoulder torque of a 25 kg-payload-class industrial arm; a family food parcel is taken as 15-25 kg"}
+   :boundary {:lo 1.0 :hi 80.0}}]}
